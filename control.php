@@ -10,6 +10,8 @@ $cmd = $_GET["cmd"];
 
 if($cmd == "playlist") {
     print json_encode($mpd->playlist);
+} else if($cmd == "filelist"){
+	print json_encode($mpd->filelist);
 } else if($cmd == "idle") {
     $out = Array();
     exec("mpc idle", $out, $ok);

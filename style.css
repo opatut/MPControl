@@ -1,8 +1,10 @@
 body {
+	background-color: #222;	 										/*Very simple fix for every browser that doesnt use webkit*/
     background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#333)) fixed;
     color: #FFF;
     font-family: "Ropa Sans", sans-serif;
     font-size: 10pt;
+    overflow: hidden;
 }
 
 table {
@@ -10,7 +12,7 @@ table {
 }
 
 #wrapper {
-    width: 800px;
+    width: 1100px;
     margin: 50px auto;
 }
 
@@ -35,7 +37,6 @@ table {
 
 #slider {
     width: 15px;
-    height: 40px;
     position: absolute;
     right: -7px;
     top: -10px;
@@ -43,10 +44,57 @@ table {
     cursor: pointer;
 }
 
+#filelist-wrapper{
+	width: 30%;
+	float: left;
+	
+}
 
-#playlist {
+#filelist{
+	height: 70%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#filelist table {
+    border-spacing: 0px;
+    width: 100%;
+}
+
+#filelist table tr {
+    cursor: pointer !important;
+}
+
+#filelist table td {
+    padding: 5px 10px;
+    color: #AAA;
+    text-shadow: 1px 1px  #000;
+    position:relative;
+    -webkit-transition: left linear 0.2s;
+}
+
+#filelist, #filelist table tr:nth-child(2n+1) td {
+    background: #000;
+}
+
+#filelist table tr:nth-child(2n) td {
+    background: #050505;
+}
+
+#filelist table tr:hover td {
+    background: #111;
+    left: 10px;
+}
+
+#playlist-wrapper {
+    width: 69%;
+	float: right;
+}
+
+#playlist{
     height: 70%;
-    overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 #playlist table {
@@ -63,7 +111,7 @@ table {
     color: #AAA;
     text-shadow: 1px 1px  #000;
     position:relative;
-    -webkit-transition: left linear 0.5s;
+    -webkit-transition: left linear 0.2s;
 }
 
 #playlist table tr:nth-child(2n+1) td {
@@ -76,10 +124,17 @@ table {
 
 #playlist table tr:hover td {
     background: #111;
+    left: 10px;
 }
 
-#playlist table tr.dragging td {
-    left: 20px;
+#playlist table tr.dragging td{
+    background: #111;
+	left: 20px;
+}
+
+#playlist table tr:active td{
+    background: #111;
+	left: 20px;
 }
 
 #playlist .duration { color: #A00; }

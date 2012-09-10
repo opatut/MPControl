@@ -17,7 +17,7 @@
                 <div id="artist_">by <span id="artist">Artist</span></div>
             </div>
 
-            <div><b>Info:</b> <span id="info">No info available</span></div>
+            <div id="info_"><span id="info">No info available</span></div>
 
             <button id="prev">❚◀</button>
             <button id="stop">◾</button>
@@ -26,8 +26,8 @@
                 <span class="pause">❚❚</span>
             </button>
             <button id="next"> ▶❚ </button>
-            <button id="volup">+</button>
             <button id="voldown">-</button>
+            <button id="volup">+</button>
 
             Volume: <span id="volume_display">?</span>%
 

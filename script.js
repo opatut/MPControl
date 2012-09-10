@@ -34,7 +34,8 @@ function action(method, arg1, arg2) {
     if(arg2 != undefined)
         url += "&arg2=" + escape(arg2)
 
-    $.ajax({url: url, dataType: "text", success: info });
+    $.ajax({url: url, dataType: "text"});
+    
 }
 
 function secsToTime(s) {
@@ -114,7 +115,7 @@ function updateStatus(callback) {
             $("#title").text(mpd_status.current_track.info.Title);
             $("#album").text(mpd_status.current_track.info.Album);
 
-            // $("#play").removeClass("play").removeClass("pause").addClass(mpd_status.state);
+            //$("#play").removeClass("play").removeClass("pause").addClass(mpd_status.state);
 
             refreshBar();
         }
@@ -132,6 +133,7 @@ function idleWait() {
             } else if(data == "player" || data == "mixer") {
                 updateStatus();
             } else {
+                info("Unknown idle action: " + data);
                 info("Unknown idle action: " + data);
             }
             idleWait(); // loop this shit
@@ -163,7 +165,6 @@ $(document).ready(function() {
         var w = $("#bar").width();
         action("SeekPercent", Math.round(x / w * 100));
     });
-
     loadPlaylist();
     updateStatus();
     idleWait();

@@ -4,9 +4,9 @@
         <link rel="stylesheet" href="style.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css'>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
-        <script src="https://raw.github.com/isocra/TableDnD/master/stable/jquery.tablednd.js"> </script>
-        <script src="script.js"> </script>
+        <script src="js/jquery.min.js"> </script>
+        <script src="js/jquery.tablednd.js"> </script>
+        <script src="js/script.js"> </script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>

@@ -51,6 +51,7 @@ define("MPD_CMD_PLSWAPTRACK", "swap");
 define("MPD_CMD_PLMOVETRACK", "move");
 define("MPD_CMD_PASSWORD",    "password");
 define("MPD_CMD_TABLE",       "list");
+define("MPD_CMD_TABLEALL",     "listall");
 
 // Predefined MPD Response messages
 define("MPD_RESPONSE_ERR", "ACK");
@@ -82,6 +83,7 @@ class Mpd {
     // MPD Status variables
     var $mpd_version    = "(unknown)";
     var $playlist       = array();
+    var $filelist       = array();
     var $status         = NULL;
     var $statistics     = NULL;
 
@@ -767,6 +769,10 @@ class Mpd {
         // Get the Playlist
         $plStr = $this->SendCommand(MPD_CMD_PLLIST);
         $this->playlist = $this->_parseFileListResponse($plStr);
+
+		//Get the filelist
+        $plStr = $this->SendCommand(MPD_CMD_TABLEALL);
+        $this->filelist = $this->_parseFileListResponse($plStr);
 
         // Set Misc Other Variables
         $x = Array(0, 0);

@@ -4,10 +4,6 @@ var mpd_status = null;
 var playlist = Array();
 var last_status = null;
 
-function info(s) {
-    $("#info").text(s);
-}
-
 function refreshBar() {
     if(mpd_status == null) {
         return;
@@ -34,7 +30,8 @@ function action(method, arg1, arg2) {
     if(arg2 != undefined)
         url += "&arg2=" + escape(arg2)
 
-    $.ajax({url: url, dataType: "text", success: info });
+    $.ajax({url: url, dataType: "text"});
+    
 }
 
 function secsToTime(s) {
@@ -73,7 +70,16 @@ function initPlaylist() {
             action("PLMoveTrack", old_index, new_index);
         }
     });
-    //$("#playlist table tr").css("cursor", "pointer");
+    $("#playlist table tr").css("cursor", "pointer");
+}
+
+function initFilelist() {
+    $("#filelist table tr").click(function() {
+        file = $(this).attr("filename");
+        action("PLAdd", file);
+    });
+    
+    $("#filelist table tr").css("cursor", "pointer");
 }
 
 function loadPlaylist() {
@@ -98,6 +104,26 @@ function loadPlaylist() {
     });
 }
 
+function loadFilelist() {
+    $.ajax({
+        url: "control.php?cmd=filelist",
+        context: $("#filelist table"),
+        dataType: "json",
+        success: function(data){
+            filelist = data;
+            $(this).html("");
+            for(i in data) {
+                var file = data[i];
+                var $tr = $('<tr id="file-' + i + '" filename="'+file.file+'"></tr>');
+                $tr.append( $('<td class="filename">' + file.file + '</td>') );
+                $(this).append($tr);
+            }
+            
+            initFilelist();
+        }
+    });
+}
+
 function updateStatus(callback) {
     $.ajax({
         url: "control.php?cmd=status",
@@ -114,7 +140,7 @@ function updateStatus(callback) {
             $("#title").text(mpd_status.current_track.info.Title);
             $("#album").text(mpd_status.current_track.info.Album);
 
-            // $("#play").removeClass("play").removeClass("pause").addClass(mpd_status.state);
+            $("#play").removeClass("play").removeClass("pause").addClass(mpd_status.state);
 
             refreshBar();
         }
@@ -131,9 +157,8 @@ function idleWait() {
                 loadPlaylist();
             } else if(data == "player" || data == "mixer") {
                 updateStatus();
-            } else {
-                info("Unknown idle action: " + data);
             }
+            
             idleWait(); // loop this shit
         },
         error: idleWait
@@ -155,6 +180,9 @@ $(document).ready(function() {
     $("#stop").click(function() { action("Stop"); });
     $("#play").click(function() { action(mpd_status.state == "play" ? "Pause" : "Play"); });
     $("#next").click(function() { action("Next"); });
+    $("#shuffle").click(function() { action("Plshuffle"); });
+    $("#update").click(function() { action("DBrefresh"); });
+    $("#clear").click(function() { action("Plclear"); });
     $("#volup").click(function() { action("AdjustVolume", 5); });
     $("#voldown").click(function() { action("AdjustVolume", -5); });
 
@@ -163,8 +191,8 @@ $(document).ready(function() {
         var w = $("#bar").width();
         action("SeekPercent", Math.round(x / w * 100));
     });
-
     loadPlaylist();
+    loadFilelist();
     updateStatus();
     idleWait();
     timer();

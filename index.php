@@ -26,28 +26,51 @@
                 <span class="pause">❚❚</span>
             </button>
             <button id="next"> ▶❚ </button>
-            <button id="update">Refresh</button><br>
             <button id="voldown">-</button>
             <button id="volup">+</button>
             Volume: <span id="volume_display">?</span>%
-
             <div id="bar">
                 <div id="bar_inner" style="width: 30%">
                     <div id="slider"></div>
                 </div>
             </div>
-
-            <div id="playlist">
-                <table>
-                    <tr class="loading">
-                        <td>
-                            <div class="loader">
-                                <img src="gfx/loader.gif">
-                                <span>Loading playlist...</span>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+			<div id="filelist-wrapper">
+				Filelist 
+				<div class="buttoncontainer">
+					<button id="update">Refresh</button>
+				</div>
+				<div id="filelist">
+					<table>
+						<tr class="loading">
+							<td>
+								<div class="loader">
+									<img src="gfx/loader.gif">
+									<span>Loading filelist...</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+            <div id="playlist-wrapper">
+				Playlist 
+				<div class="buttoncontainer">
+					<button id="shuffle">Shuffle</button>
+					<button id="clear">Clear</button>
+				</div>
+				<div id="playlist">
+					<table>
+						<tr class="loading">
+							<td>
+								
+								<div class="loader">
+									<img src="gfx/loader.gif">
+									<span>Loading playlist...</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
             </div>
 
         </div>
